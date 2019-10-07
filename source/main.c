@@ -1,6 +1,6 @@
 /*	Author: abeng001
  *  Partner(s) Name: Matthew Choi
- *	Lab Section:
+ *	Lab Section: 23
  *	Assignment: Lab #  Exercise #
  *	Exercise Description: [optional - include for your own benefit]
  *
@@ -13,11 +13,36 @@
 #endif
 
 int main(void) {
-    /* Insert DDR and PORT initializations */
+ 
+ DDRA = 0x00; PORTA = 0xFF;
+ DDRB = 0x00; PORTB = 0xFF;
+ DDRC = 0xFF; PORTC = 0x00;
 
-    /* Insert your solution below */
-    while (1) {
+ unsigned char count = 0x00;
+ unsigned char tempA = 0x00;
+ unsigned char tempB = 0x00;
+ unsigned char shiftA = 0x00;
+ unsigned char shiftB = 0x00;
+ unsigned char i = 0;
 
-    }
-    return 1;
+ while (1) {
+   count = 0x00;
+   tempA = PORTA; 
+   tempB = PORTB;
+
+   for (i = 0; i < 8; i++) {
+     shiftA = tempA & 0x01;
+     shiftB = tempB & 0x01;
+     if (shiftA == 0x01) {
+       count++;
+     }
+     if (shiftB == 0x01) {
+       count++;
+     }
+      tempA = tempA >> 1;
+      tempB = tempB >> 1;
+   }
+     PORTC = count;
+ }
+ return 1;
 }
