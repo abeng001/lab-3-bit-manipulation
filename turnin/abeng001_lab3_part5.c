@@ -20,7 +20,7 @@ int main(void) {
   unsigned char tmpD = 0x00;
   unsigned char tmpB = 0x00;
   unsigned char shiftBits = 0x00;
-  //unsigned char pd7 = 0x00;
+  unsigned char PDbit7 = 0x00;
 
     while (1) {
       tmpD = 0x00;
@@ -28,21 +28,20 @@ int main(void) {
       tmpD = PIND;
       tmpB = PINB & 0x01;
       shiftBits = (tmpD << 1) | tmpB;
-      //pd7 = tmpD & 0x80;
+      PDbit7 = tmpD & 0x80;
 
-      if((shiftBits > 69) || (PD7 == 0x80)) {
-	tmpB = tmpB | 0x02;
+      if((shiftBits > 69) || (PDbit7 == 0x80)) {
+	       tmpB = tmpB | 0x02;
       }
       else if(( shiftBits> 5) && ( shiftBits< 70)) {
-	tmpB = tmpB & 0xFD;
-	tmpB = tmpB | 0x04;
+	       tmpB = tmpB & 0xFD;
+	       tmpB = tmpB | 0x04;
       }
-      else if( shiftBits< 5) {
-	tmpB = tmpB & 0xF9;
+      else {
+	       tmpB = tmpB & 0xF9;
       }
+
       PORTB = tmpB;
-
-
     }
     return 1;
 }
